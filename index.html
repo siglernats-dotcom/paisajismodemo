@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PlantaRara — Suscripción de Plantas Exóticas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --green:    #1a4d2e;
+      --lime:     #a8c740;
+      --sand:     #f5f0e8;
+      --cream:    #fdfaf5;
+      --charcoal: #1c1c1c;
+      --muted:    #6b7368;
+      --white:    #ffffff;
+      --radius:   18px;
+      --shadow:   0 24px 64px rgba(26,77,46,.12);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(253,250,245,.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(26,77,46,.08);
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--green); }
+    .logo span { color: var(--lime); }
+    nav ul { list-style: none; display: flex; gap: 32px; }
+    nav ul a { text-decoration: none; color: var(--muted); font-size: .9rem; font-weight: 500; transition: color .2s; }
+    nav ul a:hover { color: var(--green); }
+    .nav-cta {
+      background: var(--green); color: var(--white); border: none; border-radius: 50px;
+      padding: 10px 24px; font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 500;
+      cursor: pointer; transition: all .2s;
+    }
+    .nav-cta:hover { background: #2d6b44; transform: translateY(-1px); }
+
+    /* URGENCY */
+    .urgency { background: var(--green); color: var(--white); text-align: center; padding: 14px; font-size: .88rem; }
+    .urgency strong { color: var(--lime); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; padding-top: 56px; overflow: hidden;
+    }
+    .hero-text { padding: 80px 48px 80px 80px; animation: fadeUp .9s ease both; }
+    .badge {
+      display: inline-block; background: rgba(168,199,64,.18); color: var(--green);
+      font-size: .78rem; font-weight: 500; padding: 6px 16px; border-radius: 50px;
+      margin-bottom: 28px; letter-spacing: .04em; text-transform: uppercase;
+    }
+    .hero-text h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 4.5vw, 4.2rem); font-weight: 700; line-height: 1.08;
+      color: var(--green); letter-spacing: -.03em; margin-bottom: 22px;
+    }
+    .hero-text h1 em { font-style: italic; color: #2f7a4e; }
+    .hero-text p { font-size: 1.05rem; color: var(--muted); line-height: 1.7; max-width: 440px; margin-bottom: 38px; }
+    .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      background: var(--green); color: var(--white); border: none; border-radius: 50px;
+      padding: 16px 36px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500;
+      cursor: pointer; transition: all .2s; box-shadow: 0 8px 24px rgba(26,77,46,.28);
+    }
+    .btn-primary:hover { background: #2d6b44; transform: translateY(-2px); }
+    .btn-secondary {
+      background: transparent; color: var(--green); border: 1.5px solid var(--green);
+      border-radius: 50px; padding: 15px 28px; font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; cursor: pointer; transition: all .2s;
+    }
+    .btn-secondary:hover { background: var(--green); color: var(--white); }
+    .hero-trust { margin-top: 36px; display: flex; align-items: center; gap: 14px; }
+    .avatars { display: flex; }
+    .avatar-circle {
+      width: 36px; height: 36px; border-radius: 50%; border: 2.5px solid var(--cream);
+      margin-left: -10px; display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .avatar-circle:first-child { margin-left: 0; }
+    .hero-trust p { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+    .hero-trust strong { color: var(--charcoal); }
+
+    .hero-visual {
+      position: relative; height: 100vh; overflow: hidden;
+      background: linear-gradient(145deg, #e8f5e0 0%, #c8e6c0 40%, #a5d6a7 100%);
+      animation: fadeIn 1.1s ease both .2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-visual img.main-hero-img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .hero-card {
+      position: absolute; bottom: 48px; left: -24px; z-index: 2;
+      background: var(--white); border-radius: var(--radius); padding: 18px 22px;
+      box-shadow: var(--shadow); display: flex; align-items: center; gap: 14px;
+      animation: slideRight .8s ease both .6s;
+    }
+    .hero-card .icon { font-size: 2rem; }
+    .hero-card strong { display: block; font-size: .9rem; color: var(--charcoal); }
+    .hero-card span { font-size: .78rem; color: var(--muted); }
+
+    /* SECTIONS */
+    section { padding: 100px 80px; }
+    .section-label { font-size: .75rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--lime); margin-bottom: 12px; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; color: var(--green); letter-spacing: -.02em; line-height: 1.15; margin-bottom: 18px; }
+    .section-sub { font-size: 1rem; color: var(--muted); max-width: 540px; line-height: 1.7; }
+
+    /* BENEFITS */
+    #beneficios { background: var(--sand); }
+    .benefits-header { text-align: center; margin-bottom: 64px; }
+    .benefits-header .section-sub { margin: 0 auto; }
+    .benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+    .benefit-card { background: var(--white); border-radius: var(--radius); padding: 36px 28px; transition: transform .25s, box-shadow .25s; border: 1px solid rgba(26,77,46,.07); }
+    .benefit-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .benefit-icon { font-size: 2.4rem; margin-bottom: 18px; }
+    .benefit-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 700; color: var(--green); margin-bottom: 10px; }
+    .benefit-card p { font-size: .88rem; color: var(--muted); line-height: 1.65; }
+
+    /* GALLERY */
+    #galeria { background: var(--cream); }
+    .gallery-header { text-align: center; margin-bottom: 52px; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 280px 280px; gap: 16px; }
+    .gallery-item { border-radius: var(--radius); overflow: hidden; position: relative; cursor: zoom-in; }
+    .gallery-item:first-child { grid-row: span 2; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-label { position: absolute; bottom: 18px; left: 18px; z-index: 3; color: var(--white); font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; opacity: 0; transition: opacity .3s; text-shadow: 0 2px 8px rgba(0,0,0,.4); }
+    .gallery-item:hover .gallery-label { opacity: 1; }
+    .gallery-item .overlay { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(26,77,46,0.7) 0%, transparent 60%); opacity: 0; transition: opacity .3s; }
+    .gallery-item:hover .overlay { opacity: 1; }
+
+    /* HOW */
+    #como-funciona { background: var(--green); }
+    #como-funciona .section-label { color: var(--lime); }
+    #como-funciona .section-title { color: var(--white); }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 64px; }
+    .step { text-align: center; }
+    .step-num { width: 64px; height: 64px; border-radius: 50%; background: rgba(168,199,64,.2); border: 2px solid var(--lime); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--lime); }
+    .step h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--white); margin-bottom: 10px; }
+    .step p { font-size: .88rem; color: rgba(255,255,255,.65); line-height: 1.65; }
+
+    /* TESTIMONIOS */
+    #testimonios { background: var(--sand); }
+    .test-header { text-align: center; margin-bottom: 52px; }
+    .test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .test-card { background: var(--white); border-radius: var(--radius); padding: 32px; border: 1px solid rgba(26,77,46,.07); transition: box-shadow .25s; }
+    .test-card:hover { box-shadow: var(--shadow); }
+    .stars { color: #f0b429; font-size: 1rem; margin-bottom: 18px; }
+    .test-card blockquote { font-size: .94rem; color: var(--charcoal); line-height: 1.7; margin-bottom: 22px; font-style: italic; }
+    .test-author { display: flex; align-items: center; gap: 12px; }
+    .test-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+    .test-author strong { display: block; font-size: .88rem; color: var(--charcoal); }
+    .test-author span { font-size: .78rem; color: var(--muted); }
+
+    /* PLANES */
+    #suscribete { background: var(--cream); text-align: center; }
+    #suscribete .section-title { margin: 0 auto 14px; }
+    #suscribete .section-sub { margin: 0 auto 52px; }
+    .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; margin: 0 auto 48px; }
+    .plan { background: var(--white); border-radius: var(--radius); padding: 36px 28px; border: 1.5px solid rgba(26,77,46,.1); transition: transform .2s, box-shadow .2s; }
+    .plan:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .plan.featured { background: var(--green); color: var(--white); border-color: var(--green); transform: scale(1.04); }
+    .plan-name { font-size: .78rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; color: var(--muted); }
+    .plan.featured .plan-name { color: var(--lime); }
+    .plan-price { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 700; color: var(--green); line-height: 1; margin-bottom: 4px; }
+    .plan.featured .plan-price { color: var(--white); }
+    .plan-price sup { font-size: 1.2rem; vertical-align: super; }
+    .plan-price sub { font-size: .9rem; color: var(--muted); font-family: 'DM Sans', sans-serif; font-weight: 400; }
+    .plan.featured .plan-price sub { color: rgba(255,255,255,.6); }
+    .plan-desc { font-size: .82rem; color: var(--muted); margin: 12px 0 22px; line-height: 1.5; }
+    .plan.featured .plan-desc { color: rgba(255,255,255,.7); }
+    .plan ul { list-style: none; margin-bottom: 28px; text-align: left; }
+    .plan ul li { font-size: .86rem; color: var(--muted); padding: 7px 0; border-bottom: 1px solid rgba(0,0,0,.06); display: flex; gap: 8px; }
+    .plan.featured ul li { color: rgba(255,255,255,.8); border-bottom-color: rgba(255,255,255,.1); }
+    .plan ul li::before { content: '✓'; color: var(--lime); font-weight: 700; flex-shrink: 0; }
+    .btn-plan { width: 100%; padding: 14px; border-radius: 50px; border: 1.5px solid var(--green); background: transparent; color: var(--green); font-family: 'DM Sans', sans-serif; font-size: .92rem; font-weight: 500; cursor: pointer; transition: all .2s; }
+    .btn-plan:hover { background: var(--green); color: var(--white); }
+    .plan.featured .btn-plan { background: var(--lime); border-color: var(--lime); color: var(--green); font-weight: 700; }
+    .plan.featured .btn-plan:hover { background: #c0d94a; }
+    .cta-note { font-size: .82rem; color: var(--muted); }
+    .cta-note strong { color: var(--green); }
+
+    /* FOOTER */
+    footer { background: var(--charcoal); color: rgba(255,255,255,.5); padding: 48px 80px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    footer .logo { color: var(--white); font-size: 1.4rem; }
+    footer p { font-size: .82rem; }
+    footer a { color: rgba(255,255,255,.4); text-decoration: none; margin-left: 20px; font-size: .82rem; }
+    footer a:hover { color: var(--white); }
+
+    /* WHATSAPP */
+    .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; display: flex; align-items: center; text-decoration: none; filter: drop-shadow(0 8px 20px rgba(37,211,102,.4)); transition: filter .2s, transform .2s; }
+    .wa-float:hover { transform: scale(1.06); filter: drop-shadow(0 12px 28px rgba(37,211,102,.55)); }
+    .wa-bubble { background: #25d366; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; transition: border-radius .3s; animation: waPulse 2.4s ease-in-out infinite; }
+    .wa-float:hover .wa-bubble { border-radius: 20px 20px 4px 20px; }
+    .wa-bubble svg { width: 32px; height: 32px; fill: white; }
+    .wa-tooltip { background: var(--charcoal); color: var(--white); font-size: .82rem; font-weight: 500; padding: 8px 14px; border-radius: 10px; position: absolute; right: 70px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; transform: translateX(8px); }
+    .wa-float:hover .wa-tooltip { opacity: 1; transform: translateX(0); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp   { from { opacity:0; transform: translateY(30px); } to { opacity:1; transform: translateY(0); } }
+    @keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+    @keyframes slideRight { from { opacity:0; transform: translateX(-30px); } to { opacity:1; transform: translateX(0); } }
+    @keyframes waPulse  { 0%,100% { box-shadow: 0 0 0 0 rgba(37,211,102,.45); } 50% { box-shadow: 0 0 0 14px rgba(37,211,102,0); } }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* MODAL DE IMAGEN */
+    #imageModal {
+      display:none; position:fixed; z-index:2000; inset:0; 
+      background:rgba(0,0,0,0.9); align-items:center; justify-content:center; 
+      cursor:pointer; animation: fadeIn 0.3s ease;
+    }
+    #modalImg { max-width:90%; max-height:80%; border-radius:10px; box-shadow:0 0 30px rgba(0,0,0,0.5); }
+    #modalCaption { position:absolute; bottom:40px; color:white; font-family:'Cormorant Garamond', serif; font-size:1.5rem; text-shadow: 0 2px 10px black; }
+
+    @media (max-width: 1024px) {
+      section { padding: 80px 40px; }
+      nav { padding: 16px 28px; }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .test-grid { grid-template-columns: repeat(2, 1fr); }
+      .plans { grid-template-columns: 1fr; max-width: 420px; }
+    }
+    @media (max-width: 768px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-visual { height: 60vw; min-height: 260px; }
+      .hero-text { padding: 60px 24px 32px; }
+      nav ul { display: none; }
+      .steps { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2,1fr); grid-template-rows: auto; }
+      .gallery-item:first-child { grid-row: span 1; }
+      .test-grid { grid-template-columns: 1fr; }
+      section { padding: 60px 24px; }
+      footer { flex-direction: column; text-align: center; padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="urgency">🌿 <strong>Solo quedan 12 cupos</strong> para la caja de Abril — ¡No te quedes sin la tuya!</div>
+
+<nav>
+  <div class="logo">Planta<span>Rara</span></div>
+  <ul>
+    <li><a href="#beneficios">Beneficios</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#como-funciona">Cómo funciona</a></li>
+    <li><a href="#suscribete">Planes</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('suscribete').scrollIntoView({behavior:'smooth'})">Quiero mi planta</button>
+</nav>
+
+<section id="hero">
+  <div class="hero-text">
+    <span class="badge">🌱 Suscripción mensual premium</span>
+    <h1>Transforma tu espacio con una planta <em>exótica</em> cada mes</h1>
+    <p>Recibe una planta única, seleccionada por expertos, con guía de cuidado personalizada. Directo a tu puerta, sin complicaciones.</p>
+    <div class="hero-buttons">
+      <button class="btn-primary" onclick="document.getElementById('suscribete').scrollIntoView({behavior:'smooth'})">🌿 Quiero mi planta exótica</button>
+      <button class="btn-secondary" onclick="document.getElementById('galeria').scrollIntoView({behavior:'smooth'})">Ver galería</button>
+    </div>
+    <div class="hero-trust">
+      <div class="avatars">
+        <div class="avatar-circle" style="background:#d4edda">🙋‍♀️</div>
+        <div class="avatar-circle" style="background:#c8e6c9">👨</div>
+        <div class="avatar-circle" style="background:#b2dfdb">👩</div>
+      </div>
+      <p><strong>+2,400 suscriptores felices</strong><br/>⭐ 4.9 de calificación promedio</p>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <img src="monstera2.png" alt="Planta Exótica Hero" class="main-hero-img">
+    
+    <div class="hero-card">
+      <div class="icon">📦</div>
+      <div><strong>Caja de Abril lista</strong><span>Monstera Thai Constellation + guía</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="beneficios">
+  <div class="benefits-header reveal">
+    <div class="section-label">¿Por qué PlantaRara?</div>
+    <h2 class="section-title">Todo lo que necesitas,<br/>sin complicaciones</h2>
+    <p class="section-sub">Nos encargamos de cada detalle para que solo te concentres en disfrutar tu nueva planta.</p>
+  </div>
+  <div class="benefits-grid">
+    <div class="benefit-card reveal"><div class="benefit-icon">🌺</div><h3>Plantas únicas y raras</h3><p>Cada mes una especie diferente y difícil de encontrar en tiendas convencionales.</p></div>
+    <div class="benefit-card reveal"><div class="benefit-icon">🚚</div><h3>Envío mensual incluido</h3><p>Empacada con cuidado y enviada en el momento ideal para que llegue perfecta.</p></div>
+    <div class="benefit-card reveal"><div class="benefit-icon">📖</div><h3>Guía de cuidado digital</h3><p>Instrucciones personalizadas para riego, luz y abono. Nunca volverás a matar una planta.</p></div>
+    <div class="benefit-card reveal"><div class="benefit-icon">💎</div><h3>Selección de expertos</h3><p>Nuestro equipo de botánicos selecciona solo ejemplares de calidad premium.</p></div>
+  </div>
+</section>
+
+<section id="galeria">
+  <div class="gallery-header reveal">
+    <div class="section-label">Colección</div>
+    <h2 class="section-title">Plantas que enamoran</h2>
+    <p style="font-size: 0.9rem; color: var(--muted);">(Haz clic para ampliar)</p>
+  </div>
+
+  <div class="gallery-grid reveal">
+    <div class="gallery-item">
+      <img src="monstera.jpg" alt="Monstera Deliciosa">
+      <div class="overlay"></div>
+      <span class="gallery-label">Monstera Deliciosa</span>
+    </div>
+    <div class="gallery-item">
+      <img src="calathea.jpg" alt="Calathea Orbifolia">
+      <div class="overlay"></div>
+      <span class="gallery-label">Calathea Orbifolia</span>
+    </div>
+    <div class="gallery-item">
+      <img src="photos.jpg" alt="Pothos Neon">
+      <div class="overlay"></div>
+      <span class="gallery-label">Pothos Neon</span>
+    </div>
+    <div class="gallery-item">
+      <img src="echeveria.jpg" alt="Echeveria Rosa">
+      <div class="overlay"></div>
+      <span class="gallery-label">Echeveria Rosa</span>
+    </div>
+    <div class="gallery-item">
+      <img src="ficus.png" alt="Ficus Lyrata">
+      <div class="overlay"></div>
+      <span class="gallery-label">Ficus Lyrata</span>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona">
+  <div class="reveal" style="text-align:center">
+    <div class="section-label">El proceso</div>
+    <h2 class="section-title">3 pasos, sin complicaciones</h2>
+  </div>
+  <div class="steps">
+    <div class="step reveal"><div class="step-num">1</div><h3>Elige tu plan</h3><p>Selecciona el plan que mejor se adapta a tu espacio y presupuesto. Sin compromisos mínimos.</p></div>
+    <div class="step reveal"><div class="step-num">2</div><h3>Nosotros seleccionamos</h3><p>Nuestros expertos eligen la planta del mes: única, saludable y lista para su nuevo hogar.</p></div>
+    <div class="step reveal"><div class="step-num">3</div><h3>Recibe y disfruta</h3><p>Tu planta llega embalada con cariño, junto a su guía de cuidado personalizada.</p></div>
+  </div>
+</section>
+
+<section id="testimonios">
+  <div class="test-header reveal">
+    <div class="section-label">Testimonios</div>
+    <h2 class="section-title">Lo que dicen nuestros suscriptores</h2>
+  </div>
+  <div class="test-grid">
+    <div class="test-card reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Llevo 6 meses suscrita y cada caja me sorprende más que la anterior. Mis amigas siempre preguntan dónde compré mis plantas."</blockquote>
+      <div class="test-author"><div class="test-avatar" style="background:#d4edda">🙋‍♀️</div><div><strong>Ana González</strong><span>Ciudad de México</span></div></div>
+    </div>
+    <div class="test-card reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>"La guía de cuidado es increíble. Por fin logré que mis plantas sobrevivivan. El Monstera que me enviaron está enorme ya."</blockquote>
+      <div class="test-author"><div class="test-avatar" style="background:#c8e6c9">👨‍💻</div><div><strong>Carlos Mendoza</strong><span>Guadalajara</span></div></div>
+    </div>
+    <div class="test-card reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Es el mejor regalo que me he dado. El unboxing cada mes es como abrir un tesoro. Totalmente recomendado."</blockquote>
+      <div class="test-author"><div class="test-avatar" style="background:#b2dfdb">👩‍🎨</div><div><strong>María Torres</strong><span>Monterrey</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="suscribete">
+  <div class="section-label reveal">Planes</div>
+  <h2 class="section-title reveal">Escoge tu experiencia</h2>
+  <p class="section-sub reveal">Cancela cuando quieras. Sin compromisos. Solo plantas hermosas.</p>
+  <div class="plans">
+    <div class="plan reveal">
+      <div class="plan-name">Básico</div>
+      <div class="plan-price"><sup>$</sup>299<sub>/mes</sub></div>
+      <div class="plan-desc">Ideal para comenzar tu colección</div>
+      <ul><li>1 planta exótica al mes</li><li>Guía de cuidado digital</li><li>Envío incluido</li><li>Soporte por WhatsApp</li></ul>
+      <button class="btn-plan">Empezar ahora</button>
+    </div>
+    <div class="plan featured reveal">
+      <div class="plan-name">⭐ Popular</div>
+      <div class="plan-price"><sup>$</sup>499<sub>/mes</sub></div>
+      <div class="plan-desc">El favorito de nuestros suscriptores</div>
+      <ul><li>2 plantas exóticas al mes</li><li>Guía de cuidado impresa</li><li>Envío exprés incluido</li><li>Acceso prioritario a rarezas</li><li>Descuento en tienda online</li></ul>
+      <button class="btn-plan">Suscribirme ahora</button>
+    </div>
+    <div class="plan reveal">
+      <div class="plan-name">Coleccionista</div>
+      <div class="plan-price"><sup>$</sup>899<sub>/mes</sub></div>
+      <div class="plan-desc">Para los verdaderos amantes</div>
+      <ul><li>4 plantas premium al mes</li><li>Macetas exclusivas incluidas</li><li>Asesoría botánica personal</li><li>Acceso a ediciones limitadas</li><li>Envío exprés + seguro</li></ul>
+      <button class="btn-plan">Quiero ser coleccionista</button>
+    </div>
+  </div>
+  <p class="cta-note reveal">🔒 Pago seguro · <strong>Cancela cuando quieras</strong> · Garantía de satisfacción 30 días</p>
+</section>
+
+<footer>
+  <div class="logo">Planta<span style="color:var(--lime)">Rara</span></div>
+  <p>© 2025 PlantaRara · Hecho con 🌿 en México</p>
+  <div><a href="#">Privacidad</a><a href="#">Términos</a><a href="#">Contacto</a></div>
+</footer>
+
+<div id="imageModal">
+  <span style="position:absolute; top:20px; right:30px; color:white; font-size:40px; font-weight:bold;">&times;</span>
+  <img id="modalImg" src="">
+  <p id="modalCaption"></p>
+</div>
+
+<a class="wa-float"
+   href="https://wa.me/521XXXXXXXXXX?text=Hola%2C%20me%20interesa%20suscribirme%20a%20PlantaRara%20🌿"
+   target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+  <span class="wa-tooltip">¡Escríbenos! 🌿</span>
+  <div class="wa-bubble">
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.002 2.667C8.638 2.667 2.667 8.637 2.667 16c0 2.364.618 4.576 1.695 6.497L2.667 29.333l7.047-1.669A13.266 13.266 0 0016.002 29.333C23.365 29.333 29.333 23.363 29.333 16s-5.968-13.333-13.331-13.333zm0 24a11.6 11.6 0 01-5.87-1.59l-.42-.25-4.182.99.997-3.99-.275-.432A11.6 11.6 0 014.267 16c0-6.474 5.261-11.733 11.735-11.733S27.733 9.526 27.733 16 22.474 26.667 16.002 26.667zm6.42-8.77c-.353-.176-2.088-1.03-2.41-1.147-.323-.118-.558-.176-.793.176-.234.352-.91 1.147-1.116 1.383-.205.235-.411.264-.764.088-.353-.176-1.49-.55-2.837-1.75-1.049-.936-1.757-2.093-1.963-2.445-.205-.352-.022-.543.154-.718.158-.157.353-.411.529-.617.176-.205.235-.352.353-.587.118-.236.059-.44-.03-.617-.088-.176-.793-1.911-1.087-2.617-.286-.688-.577-.595-.793-.606-.206-.01-.44-.012-.676-.012-.235 0-.617.088-.94.44-.323.352-1.234 1.206-1.234 2.941 0 1.736 1.263 3.413 1.44 3.649.176.235 2.487 3.797 6.025 5.325.843.364 1.5.581 2.013.744.845.27 1.616.232 2.224.14.678-.1 2.088-.853 2.382-1.678.294-.823.294-1.53.206-1.678-.088-.147-.323-.235-.676-.411z"/>
+    </svg>
+  </div>
+</a>
+
+<script>
+  // Animación de aparición (Reveal)
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // WhatsApp en botones de planes
+  document.querySelectorAll('.btn-plan').forEach(btn => {
+    btn.addEventListener('click', () => {
+      window.open("https://wa.me/521XXXXXXXXXX?text=Hola%2C%20quiero%20suscribirme%20al%20plan%20PlantaRara%20🌿", '_blank');
+    });
+  });
+
+  // Lógica del MODAL de la Galería
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImg');
+  const modalCaption = document.getElementById('modalCaption');
+
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const img = item.querySelector('img');
+      const label = item.querySelector('.gallery-label').innerText;
+      
+      modal.style.display = 'flex';
+      modalImg.src = img.src;
+      modalCaption.innerText = label;
+    });
+  });
+
+  // Cerrar el modal al hacer clic
+  modal.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+</script>
+</body>
+</html>
