@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alquimia Paisajismo | Diseño de Jardines y Espacios Verdes en México</title>
+    <meta name="description" content="Transformamos espacios exteriores en obras de arte vivas. Expertos en diseño de jardines, muros verdes y paisajismo sustentable en México.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    
+    <style>
+        body { font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        
+        .hero-video-overlay {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .logo-img { height: 40px; width: auto; filter: brightness(0) invert(1); }
+        @media (min-width: 768px) { .logo-img { height: 55px; } }
+        
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 55px;
+            height: 55px;
+            transition: transform 0.3s ease;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+
+        .img-display-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+        }
+        
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+            border-radius: 1.5rem;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 overflow-x-hidden">
+
+    <a href="https://wa.me/TU_NUMERO" class="whatsapp-float" target="_blank" aria-label="Contacto por WhatsApp">
+        <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.893-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.481 8.403 0 6.556-5.332 11.892-11.893 11.892-1.99 0-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 4.471 1.75 6.19l-.992 3.613 3.731-.994zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    </a>
+
+    <nav class="fixed w-[92%] z-50 px-4 py-2 flex justify-between items-center glass-card mt-4 mx-auto left-0 right-0 rounded-full md:px-8">
+        <div class="flex items-center">
+            <img src="logo.webp" alt="Alquimia Logo" class="logo-img" width="180" height="55">
+        </div>
+        <div class="hidden lg:flex space-x-6 text-white font-medium uppercase text-[10px] tracking-widest">
+            <a href="#inicio" class="hover:text-green-300 transition">Inicio</a>
+            <a href="#servicios" class="hover:text-green-300 transition">Servicios</a>
+            <a href="https://wa.me/TU_NUMERO" class="bg-white/20 px-5 py-2 rounded-full hover:bg-white hover:text-stone-900 transition border border-white/30">Cotizar ahora</a>
+        </div>
+        <a href="https://wa.me/TU_NUMERO" class="lg:hidden text-white text-[10px] font-bold uppercase tracking-widest border border-white/30 px-4 py-2 rounded-full">Contacto</a>
+    </nav>
+
+    <header id="inicio" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&q=80&w=2000" 
+                 class="w-full h-full object-cover" 
+                 alt="Jardín Alquimia Paisajismo" 
+                 fetchpriority="high"
+                 width="1920" 
+                 height="1080">
+            <div class="absolute inset-0 hero-video-overlay"></div>
+        </div>
+        <div class="relative z-10 text-center text-white px-6">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl mb-6">El Arte de la Naturaleza <br class="hidden md:block"> en tu Hogar</h1>
+            <p class="text-sm md:text-xl mb-8 font-light max-w-2xl mx-auto uppercase tracking-widest">Diseño paisajístico de lujo para espacios exigentes</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="TU_LINK_DE_INSTAGRAM" target="_blank" class="px-8 py-3 bg-white text-stone-900 rounded-full font-semibold hover:bg-stone-200 transition text-sm">Ver Portafolio</a>
+                <a href="https://wa.me/TU_NUMERO" target="_blank" class="px-8 py-3 border-2 border-white rounded-full font-semibold hover:bg-white hover:text-stone-900 transition text-sm">Contactar Experto</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="servicios" class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-3xl md:text-5xl mb-4 text-stone-900 uppercase tracking-tighter text-center">Nuestros Servicios</h2>
+            <div class="w-16 h-1 bg-[#6b7c4c] mx-auto"></div>
+        </div>
+
+        <div class="space-y-20 md:space-y-32">
+            <article class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 reveal">
+                <div class="w-full lg:w-1/2 img-display-container">
+                    <img src="jardin.webp" alt="Diseño de Jardines" class="img-fluid shadow-xl" loading="lazy" width="600" height="450">
+                </div>
+                <div class="w-full lg:w-1/2">
+                    <h3 class="text-2xl md:text-3xl mb-4 text-[#6b7c4c] uppercase">1. DISEÑO DE JARDINES Y PAISAJISMO</h3>
+                    <p class="text-stone-600 leading-relaxed mb-6 text-sm md:text-base">Nuestro equipo de diseñadores paisajistas trabaja contigo para crear espacios exteriores que reflejen tu estilo y personalidad. Especializados en proyectos exóticos y personalizados.</p>
+                    <div class="bg-stone-100 p-6 rounded-2xl">
+                        <h4 class="font-bold mb-3 text-xs tracking-widest uppercase text-[#6b7c4c]">Servicios que ofrecemos:</h4>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-stone-600 text-xs md:text-sm">
+                            <li>• Consultas personalizadas</li>
+                            <li>• Diseño de jardines</li>
+                            <li>• Mantenimiento y cuidado</li>
+                            <li>• Poda correctiva y estética</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="flex flex-col lg:flex-row-reverse items-center gap-10 lg:gap-16 reveal">
+                <div class="w-full lg:w-1/2 img-display-container">
+                    <img src="maceta.webp" alt="Macetas de Diseño" class="img-fluid shadow-xl" loading="lazy" width="600" height="450">
+                </div>
+                <div class="w-full lg:w-1/2">
+                    <h3 class="text-2xl md:text-3xl mb-4 text-[#6b7c4c] uppercase">2. MACETAS DE DISEÑO</h3>
+                    <p class="text-stone-600 leading-relaxed mb-6 text-sm md:text-base">Macetas de autor en diversos estilos, tamaños y materiales ecológicos. Perfectas para realzar la belleza de tus plantas con un toque minimalista o tradicional.</p>
+                    <div class="bg-stone-100 p-6 rounded-2xl">
+                        <h4 class="font-bold mb-3 text-xs tracking-widest uppercase text-[#6b7c4c]">Características:</h4>
+                        <ul class="space-y-2 text-stone-600 text-xs md:text-sm">
+                            <li>• Materiales ecológicos</li>
+                            <li>• Diseños innovadores</li>
+                            <li>• Variedad de tamaños y colores</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 reveal">
+                <div class="w-full lg:w-1/2 img-display-container">
+                    <img src="vivero.webp" alt="Viveros Alquimia" class="img-fluid shadow-xl" loading="lazy" width="600" height="450">
+                </div>
+                <div class="w-full lg:w-1/2">
+                    <h3 class="text-2xl md:text-3xl mb-4 text-[#6b7c4c] uppercase">3. VIVEROS</h3>
+                    <p class="text-stone-600 leading-relaxed mb-6 text-sm md:text-base">Cultivamos plantas únicas con máximo cuidado para garantizar su salud. Nuestro personal experto te asesora según el clima de tu espacio.</p>
+                    <div class="bg-[#6b7c4c] text-white p-6 rounded-2xl shadow-lg">
+                        <p class="italic font-light text-sm">"Seleccionamos cada planta con cuidado para garantizar su salud y vitalidad en tu espacio verde."</p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="py-20 bg-stone-100 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex flex-wrap items-center justify-center gap-3 mb-12 reveal">
+                <h2 class="text-2xl md:text-4xl text-stone-700 uppercase tracking-tighter">¿Por qué elegir</h2>
+                <img src="logo.webp" alt="Alquimia" class="h-10 md:h-16 object-contain brightness-50" width="150" height="60" loading="lazy">
+                <span class="text-2xl md:text-4xl text-stone-700">?</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-[#6b7c4c] p-8 rounded-[30px] text-white reveal shadow-lg">
+                    <h3 class="text-xl font-bold mb-2 uppercase tracking-widest">Experiencia</h3>
+                    <p class="font-light text-sm">Más de 15 años en el sector.</p>
+                </div>
+                <div class="bg-[#6b7c4c] p-8 rounded-[30px] text-white reveal shadow-lg" style="transition-delay: 0.2s">
+                    <h3 class="text-xl font-bold mb-2 uppercase tracking-widest">Sostenibilidad</h3>
+                    <p class="font-light text-sm">Prácticas ecológicas responsables.</p>
+                </div>
+                <div class="bg-[#6b7c4c] p-8 rounded-[30px] text-white reveal shadow-lg" style="transition-delay: 0.4s">
+                    <h3 class="text-xl font-bold mb-2 uppercase tracking-widest">Personalización</h3>
+                    <p class="font-light text-sm">Proyectos únicos para ti.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto" class="py-16 px-6 bg-stone-900 text-white text-center">
+        <h2 class="text-2xl md:text-3xl mb-6">¿Listo para comenzar?</h2>
+        <a href="mailto:hola@alquimiapaisajismo.com.mx" class="text-sm md:text-lg font-light hover:text-green-400 transition block mb-8">hola@alquimiapaisajismo.com.mx</a>
+        <div class="flex justify-center space-x-6">
+            <a href="TU_LINK_DE_INSTAGRAM" class="text-xs uppercase tracking-widest border-b border-white/20 pb-1">Instagram</a>
+            <a href="https://wa.me/TU_NUMERO" class="text-xs uppercase tracking-widest border-b border-white/20 pb-1">WhatsApp</a>
+        </div>
+        <div class="mt-12 text-[10px] text-stone-500 uppercase tracking-[0.2em]">
+            &copy; 2026 Alquimia Paisajismo By Paco Berengueras.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function reveal() {
+                var reveals = document.querySelectorAll(".reveal");
+                for (var i = 0; i < reveals.length; i++) {
+                    var windowHeight = window.innerHeight;
+                    var elementTop = reveals[i].getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 100) {
+                        reveals[i].classList.add("active");
+                    }
+                }
+            }
+            window.addEventListener("scroll", reveal);
+            reveal();
+        });
+    </script>
+</body>
+</html>
